@@ -1,0 +1,41 @@
+# ============================================================
+#  PRIVACY GUARDRAIL — never commit memory, data, or secrets.
+#  The engine is public. Everything personal stays local.
+# ============================================================
+
+# --- Local memory (what the agent has learned / done) ---
+/memory/*
+!/memory/.gitkeep
+
+# --- Local data (notes, goals, reflections, task exports) ---
+/data/*
+!/data/.gitkeep
+
+# --- Local config (repo maps, MCP wiring, machine-specific) ---
+/config/*
+!/config/.gitkeep
+
+# --- Secrets / tokens / env ---
+.env
+.env.*
+!.env.example
+*.token
+*.secret
+secrets/
+credentials*.json
+
+# --- MCP configs may contain tokens — never commit the real one ---
+.mcp.json
+mcp.json
+
+# --- OS / editor noise ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- Logs / scratch ---
+*.log
+/tmp/
+/scratch/

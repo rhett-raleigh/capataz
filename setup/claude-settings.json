@@ -1,0 +1,27 @@
+{
+  "//": "Copy this to .claude/settings.json in your clone (the engine can't ship into .claude/ directly). The hook is the real protection; the deny rules are a backstop.",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./.mcp.json)",
+      "Read(**/*.token)",
+      "Read(**/*.secret)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Bash|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/hooks/protect-secrets.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

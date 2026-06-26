@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# orchestrate — the SINGLE entrypoint. Every trigger (Raycast, Slack, cron,
+# CLI) calls this so behavior is identical everywhere. See docs/invocation.md.
+#
+# Secrets note: this script does NOT load .env into the agent's environment, so
+# tokens can't leak into the agent's context. MCP servers hold their own
+# credentials (keychain / their own config). See docs/secrets.md.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+INPUT="$*"
+if [ -z "${INPUT}" ]; then
+  echo "usage: orchestrate \"<slack link | ticket ref | instruction>\"" >&2
+  exit 1
+fi
+
+# Run the agent headless, JSON output so we can capture the session id.
+OUT="$(claude -p "Orchestrate this input: ${INPUT}" --output-format json)"
+
+# Extract session id + result text (best-effort; falls back to raw output).
+SID="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("session_id",""))' 2>/dev/null || true)"
+RES="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("result",""))' 2>/dev/null || true)"
+
+# Log the session id to a gitignored file so you can find/resume it later.
+mkdir -p data
+printf '%s\t%s\t%s\n' "$(date -u +%FT%TZ)" "${SID:-unknown}" "${INPUT}" >> data/sessions.log
+
+# Report.
+printf '%s\n' "${RES:-$OUT}"
+if [ -n "${SID}" ]; then
+  echo ""
+  echo "↳ session ${SID}"
+  echo "  resume/inspect:  claude --resume ${SID}"
+fi
