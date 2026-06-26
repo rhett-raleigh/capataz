@@ -18,6 +18,6 @@
 # @raycast.description Send an input to the orchestrator agent.
 # @raycast.author you
 
-CAPATAZ_DIR="$HOME/code/capataz"   # <-- edit to your clone path
+CAPATAZ_DIR="$HOME/projects/capataz"   # <-- edit to your clone path
 
 exec "$CAPATAZ_DIR/bin/capataz" "$1"
