@@ -100,3 +100,5 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   work. See `capabilities/classify.md`.
 - `code-handoff` — branch, invoke an isolated coding agent, open a PR, report
   the link. See `capabilities/code-handoff.md`.
+- `notes` — storage, retrieval, cross-linking, and Obsidian integration for
+  the notes vault. See `capabilities/notes.md`.
