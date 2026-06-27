@@ -93,6 +93,8 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   agent handoff on a personal repo.
 - `example-create-task` — find-or-create a task in the configured tracker, then
   report back. (Example skill — copy it to build real ones.)
+- `notes` — capture ideas (quick or guided), track goals, run coached weekly
+  reflections, browse and open notes in Obsidian. See `skills/notes.md`.
 
 ## 8. Capabilities index
 
@@ -100,3 +102,5 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   work. See `capabilities/classify.md`.
 - `code-handoff` — branch, invoke an isolated coding agent, open a PR, report
   the link. See `capabilities/code-handoff.md`.
+- `notes` — vault storage, retrieval, cross-linking, index maintenance, and
+  Obsidian integration for the notes skill. See `capabilities/notes.md`.
