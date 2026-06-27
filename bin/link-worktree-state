@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# link-worktree-state — detect worktree mode and symlink persistent local dirs.
+#
+# Git worktrees only contain tracked files. Capataz's memory/, data/, config/,
+# and .mcp.json are gitignored, so a fresh worktree starts without them. This
+# script symlinks those paths back to the main repo so every invocation —
+# regardless of which worktree it landed in — reads and writes the same state.
+#
+# Safe to run in the main repo (no-ops) or outside a git repo (exits 0).
+set -euo pipefail
+
+# Resolve which repo we're in.
+GIT_COMMON="$(git rev-parse --git-common-dir 2>/dev/null)" || exit 0
+MAIN_REPO="$(cd "$GIT_COMMON/.." && pwd)"
+CWD="$(pwd)"
+
+# If we're already in the main repo, nothing to do.
+if [ "$CWD" = "$MAIN_REPO" ]; then
+  exit 0
+fi
+
+link_dir() {
+  local name="$1"
+  local target="$MAIN_REPO/$name"
+  local link="$CWD/$name"
+
+  [ -d "$target" ] || return 0
+
+  if [ -L "$link" ]; then
+    return 0
+  fi
+
+  if [ -d "$link" ]; then
+    rm -rf "$link"
+  fi
+
+  ln -s "$target" "$link"
+}
+
+link_file() {
+  local name="$1"
+  local target="$MAIN_REPO/$name"
+  local link="$CWD/$name"
+
+  [ -f "$target" ] || return 0
+
+  if [ -L "$link" ]; then
+    return 0
+  fi
+
+  [ -f "$link" ] && rm -f "$link"
+
+  ln -s "$target" "$link"
+}
+
+link_dir "memory"
+link_dir "data"
+link_dir "config"
+link_file ".mcp.json"
+link_file ".env"

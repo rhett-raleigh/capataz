@@ -7,11 +7,11 @@
 # Required parameters:
 # @raycast.schemaVersion 1
 # @raycast.title Capataz
-# @raycast.mode fullOutput
+# @raycast.mode compact
 #
 # Optional parameters:
 # @raycast.icon 🤖
-# @raycast.argument1 { "type": "text", "placeholder": "Slack link / ticket / instruction" }
+# @raycast.argument1 { "type": "text", "placeholder": "Just say the word" }
 # @raycast.packageName Capataz
 #
 # Documentation:
@@ -20,4 +20,4 @@
 
 CAPATAZ_DIR="$HOME/projects/capataz"   # <-- edit to your clone path
 
-exec "$CAPATAZ_DIR/bin/capataz" "$1"
+exec "$CAPATAZ_DIR/bin/capataz" --async "$1"

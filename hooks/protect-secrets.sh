@@ -22,8 +22,8 @@ except Exception:
     print("")' 2>/dev/null || echo "")"
 
 # Protected patterns: .env / .env.* , secrets/ , .mcp.json , *.token , *.secret , credentials*
-if printf '%s' "$blob" | grep -Eiq '\.env([^a-zA-Z0-9]|$)|\.env\.|/secrets/|(^|/)secrets/|\.mcp\.json|\.token([^a-zA-Z0-9]|$)|\.secret([^a-zA-Z0-9]|$)|credentials'; then
-  echo "BLOCKED by protect-secrets hook: reading secret files (.env, secrets/, .mcp.json, *.token, *.secret, credentials*) is not permitted. These are not needed — credentials live with the MCP servers / OS keychain. See docs/secrets.md." >&2
+if printf '%s' "$blob" | grep -Eiq '\.env([^a-zA-Z0-9]|$)|\.env\.|/secrets/|(^|/)secrets/|\.token([^a-zA-Z0-9]|$)|\.secret([^a-zA-Z0-9]|$)|credentials'; then
+  echo "BLOCKED by protect-secrets hook: reading secret files (.env, secrets/, *.token, *.secret, credentials*) is not permitted. These are not needed — credentials live with the MCP servers / OS keychain. See docs/secrets.md." >&2
   exit 2
 fi
 

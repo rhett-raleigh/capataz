@@ -7,7 +7,13 @@
 # credentials (keychain / their own config). See docs/secrets.md.
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+ROOT="$(cd "$(dirname "$SOURCE")/.." && pwd)"
 cd "$ROOT"
 
 # --- PATH fix -------------------------------------------------------------
@@ -20,33 +26,52 @@ export PATH="$HOME/.local/bin:$HOME/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bi
 # Optional: if your tools live somewhere unusual, hardcode the dir here.
 # export PATH="/your/custom/bin:$PATH"
 
+unset ANTHROPIC_API_KEY
+
 if ! command -v claude >/dev/null 2>&1; then
   echo "capataz: 'claude' not found on PATH. Run 'which claude' in your terminal and add its directory to the PATH line in bin/capataz." >&2
   exit 127
 fi
 # --------------------------------------------------------------------------
 
+# --- Parse flags ----------------------------------------------------------
+ASYNC=false
+INTERACTIVE=false
+while [[ "${1:-}" == -* ]]; do
+  case "$1" in
+    --async) ASYNC=true; shift ;;
+    -i|--interactive) INTERACTIVE=true; shift ;;
+    *) echo "capataz: unknown flag $1" >&2; exit 1 ;;
+  esac
+done
+
 INPUT="$*"
 if [ -z "${INPUT}" ]; then
-  echo "usage: capataz \"<slack link | ticket ref | instruction>\"" >&2
+  echo "usage: capataz [--async | -i] \"<slack link | ticket ref | instruction>\"" >&2
   exit 1
 fi
 
-# Run the agent headless, JSON output so we can capture the session id.
-OUT="$(claude -p "Orchestrate this input: ${INPUT}" --output-format json)"
+PROMPT="Orchestrate this input: ${INPUT}"
 
-# Extract session id + result text (best-effort; falls back to raw output).
-SID="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("session_id",""))' 2>/dev/null || true)"
-RES="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("result",""))' 2>/dev/null || true)"
+AGENT_JSON='{"capataz":{"description":"Orchestrator — routes Slack links, tickets, and instructions","prompt":"You are the Capataz orchestrator. On startup: read AGENTS.md, list skills/ and capabilities/, and load memory/learned.md. Then follow the core loop in AGENTS.md §3."}}'
 
-# Log the session id to a gitignored file so you can find/resume it later.
-mkdir -p data
-printf '%s\t%s\t%s\n' "$(date -u +%FT%TZ)" "${SID:-unknown}" "${INPUT}" >> data/sessions.log
+if [ "$INTERACTIVE" = true ]; then
+  exec claude "$PROMPT" --agents "$AGENT_JSON" --agent capataz --add-dir "$ROOT"
+elif [ "$ASYNC" = true ]; then
+  claude --bg -p "$PROMPT" --agents "$AGENT_JSON" --agent capataz --add-dir "$ROOT"
+else
+  OUT="$(claude -p "$PROMPT" --agents "$AGENT_JSON" --agent capataz --output-format json)"
 
-# Report.
-printf '%s\n' "${RES:-$OUT}"
-if [ -n "${SID}" ]; then
-  echo ""
-  echo "↳ session ${SID}"
-  echo "  resume/inspect:  claude --resume ${SID}"
+  SID="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("session_id",""))' 2>/dev/null || true)"
+  RES="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("result",""))' 2>/dev/null || true)"
+
+  mkdir -p data
+  printf '%s\t%s\t%s\n' "$(date -u +%FT%TZ)" "${SID:-unknown}" "${INPUT}" >> data/sessions.log
+
+  printf '%s\n' "${RES:-$OUT}"
+  if [ -n "${SID}" ]; then
+    echo ""
+    echo "↳ session ${SID}"
+    echo "  resume/inspect:  claude --resume ${SID}"
+  fi
 fi

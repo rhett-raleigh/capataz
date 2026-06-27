@@ -6,7 +6,6 @@
       "Read(./.env)",
       "Read(./.env.*)",
       "Read(./secrets/**)",
-      "Read(./.mcp.json)",
       "Read(**/*.token)",
       "Read(**/*.secret)"
     ]

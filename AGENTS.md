@@ -21,6 +21,11 @@ Markdown files (see §6). You never need a code change to gain a capability.
 
 ## 2. Startup routine (do this every run)
 
+0. **Worktree check.** Run `bin/link-worktree-state`. If you're in a git
+   worktree (e.g. spawned by dispatch or `start_code_task`), this symlinks
+   `memory/`, `data/`, `config/`, and `.mcp.json` back to the main repo so you
+   read and write the same persistent state. Safe to run anywhere — no-ops in the
+   main repo.
 1. Read this file.
 2. List `skills/` and `capabilities/` to learn what you can currently do.
 3. Load durable local context if it exists:
