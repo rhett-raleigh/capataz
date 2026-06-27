@@ -1,0 +1,15 @@
+# Notes configuration (LOCAL — copy to config/notes.yaml, never commit)
+#
+# vault_path: where notes are stored. Absolute path or relative to repo root.
+#   Default: data/notes
+#   To use an existing Obsidian vault: /path/to/your/vault
+#
+# obsidian_vault: your Obsidian vault name (as shown in Obsidian's vault switcher).
+#   When set, "open in Obsidian" uses the obsidian:// URI scheme.
+#   When null, falls back to `open <file-path>`.
+#
+# default_tags: tags applied to every new note automatically.
+
+vault_path: data/notes
+obsidian_vault: null
+default_tags: []
