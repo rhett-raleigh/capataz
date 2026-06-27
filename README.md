@@ -11,12 +11,15 @@ they live in gitignored local directories and never get committed.
 ## What's in the repo (public)
 
 ```
-AGENTS.md        Canonical agent instructions (the standard format)
-CLAUDE.md        One-line pointer to AGENTS.md (Claude-native)
-skills/          Reusable capabilities, one Markdown file each
-capabilities/    Core behaviors: classify work, hand off to a coding agent
-docs/            Generalized setup + extension guides
-templates/       Empty shapes for the private files you create locally
+AGENTS.md           Canonical agent instructions (the standard format)
+CLAUDE.md           One-line pointer to AGENTS.md (Claude-native)
+.claude/agents/     Claude Code subagent definition (copy to ~/.claude/agents/)
+.claude/settings.json  Permissions allowlist for autonomous operation
+skills/             Reusable capabilities, one Markdown file each
+capabilities/       Core behaviors: classify work, hand off to a coding agent
+docs/               Generalized setup + extension guides
+templates/          Empty shapes for the private files you create locally
+bin/                Entrypoints: capataz (CLI), link-worktree-state (worktree shim)
 ```
 
 ## What you create locally (never committed)
@@ -43,8 +46,16 @@ so the engine is portable but behaves natively in Claude.
 
 1. `cp .env.example .env` and fill in what your skills need.
 2. Copy the files under `templates/` into `config/`, `memory/`, `data/`.
-3. Wire your MCPs locally (e.g. `claude mcp add ...`) — never commit `.mcp.json`.
-4. Open the repo with your agent. It reads `AGENTS.md`, discovers `skills/`,
-   loads whatever local memory/config exists, and is ready.
+3. Install the agent definition:
+   ```
+   cp .claude/agents/capataz.md ~/.claude/agents/capataz.md
+   ```
+4. Wire your MCPs locally (e.g. `claude mcp add ...`) — never commit `.mcp.json`.
+5. Run the orchestrator:
+   ```
+   bin/capataz "https://yourworkspace.slack.com/archives/..."
+   # or
+   claude --agent capataz "Orchestrate this input: ..."
+   ```
 
 See `docs/setup.md` to get running and `docs/extending.md` to add a capability.

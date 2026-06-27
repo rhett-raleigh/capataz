@@ -26,12 +26,14 @@ Per machine (run once on each laptop):
    ```
    The resulting `.mcp.json` is gitignored.
 
-5. **Install secret protection** (do this before any real token touches the box):
+5. **Install the agent definition and secret protection:**
    ```
-   mkdir -p .claude
-   cp setup/claude-settings.json .claude/settings.json
-   chmod +x hooks/protect-secrets.sh bin/capataz
+   mkdir -p ~/.claude/agents
+   cp .claude/agents/capataz.md ~/.claude/agents/capataz.md
+   chmod +x hooks/protect-secrets.sh bin/capataz bin/link-worktree-state
    ```
+   This makes `capataz` available as a named agent (`claude --agent capataz`)
+   and from dispatch/start_code_task invocations.
    Then verify: ask the agent to read `.env` and confirm the hook blocks it.
    See `docs/secrets.md`.
 

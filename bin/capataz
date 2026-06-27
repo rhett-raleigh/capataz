@@ -53,14 +53,12 @@ fi
 
 PROMPT="Orchestrate this input: ${INPUT}"
 
-AGENT_JSON='{"capataz":{"description":"Orchestrator — routes Slack links, tickets, and instructions","prompt":"You are the Capataz orchestrator. On startup: read AGENTS.md, list skills/ and capabilities/, and load memory/learned.md. Then follow the core loop in AGENTS.md §3."}}'
-
 if [ "$INTERACTIVE" = true ]; then
-  exec claude "$PROMPT" --agents "$AGENT_JSON" --agent capataz --add-dir "$ROOT"
+  exec claude "$PROMPT" --agent capataz --add-dir "$ROOT"
 elif [ "$ASYNC" = true ]; then
-  claude --bg -p "$PROMPT" --agents "$AGENT_JSON" --agent capataz --add-dir "$ROOT"
+  claude --bg -p "$PROMPT" --agent capataz --add-dir "$ROOT"
 else
-  OUT="$(claude -p "$PROMPT" --agents "$AGENT_JSON" --agent capataz --output-format json)"
+  OUT="$(claude -p "$PROMPT" --agent capataz --add-dir "$ROOT" --output-format json)"
 
   SID="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("session_id",""))' 2>/dev/null || true)"
   RES="$(printf '%s' "$OUT" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("result",""))' 2>/dev/null || true)"
