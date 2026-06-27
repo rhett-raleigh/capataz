@@ -8,7 +8,7 @@ Sort an incoming input into one of three lanes:
 
 | Lane | Looks like | Routes to |
 |------|-----------|-----------|
-| **note** | a goal, reflection, idea, reference, "remember that…" | record in `data/`, no tracker, no code |
+| **note** | a goal, reflection, idea, reference, "remember that…" | invoke `skills/notes.md` to capture, refine, or reflect |
 | **task** | actionable work to track, but not code to write now | find-or-create in the tracker (see skills) |
 | **engineering** | a bug/feature that ends in a code change | ticket → `code-handoff` → PR |
 
