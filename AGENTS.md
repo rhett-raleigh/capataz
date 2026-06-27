@@ -93,6 +93,14 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   agent handoff on a personal repo.
 - `example-create-task` — find-or-create a task in the configured tracker, then
   report back. (Example skill — copy it to build real ones.)
+- `quarter-retro` — [work] Guide a structured quarter retrospective — what
+  shipped, what didn't, what to change.
+- `capacity-calc` — [work] Walk through team capacity inputs — roster, PTO,
+  oncall, maintenance — for a quarter.
+- `priority-ranking` — [work] Collaboratively rank quarter initiatives by
+  impact and effort.
+- `weekly-checkin` — [work] Run a start-of-week or mid-week check-in against
+  the quarter plan.
 
 ## 8. Capabilities index
 
@@ -100,3 +108,7 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   work. See `capabilities/classify.md`.
 - `code-handoff` — branch, invoke an isolated coding agent, open a PR, report
   the link. See `capabilities/code-handoff.md`.
+- `doc-sync` — generic read/write interface for external document stores
+  (Confluence, Google Docs, Notion). See `capabilities/doc-sync.md`.
+- `task-sync` — generic read/write interface for external task trackers
+  (Jira, Linear). See `capabilities/task-sync.md`.
