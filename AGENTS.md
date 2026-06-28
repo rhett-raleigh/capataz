@@ -99,6 +99,14 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
 - `morning-briefing` — daily briefing from Slack, trackers, calendar, git, and
   capataz memory. Writes to `data/briefings/YYYY-MM-DD.md`. Degrades gracefully
   when data sources are unconfigured.
+- `quarter-retro` — [work] Guide a structured quarter retrospective — what
+  shipped, what didn't, what to change.
+- `capacity-calc` — [work] Walk through team capacity inputs — roster, PTO,
+  oncall, maintenance — for a quarter.
+- `priority-ranking` — [work] Collaboratively rank quarter initiatives by
+  impact and effort.
+- `weekly-checkin` — [work] Run a start-of-week or mid-week check-in against
+  the quarter plan.
 
 ## 8. Project knowledge (`project/`)
 
@@ -118,3 +126,7 @@ Obsidian vault. `project/` is committed and shared; personal notes are private.
   the link. See `capabilities/code-handoff.md`.
 - `notes` — vault storage, retrieval, cross-linking, index maintenance, and
   Obsidian integration for the notes skill. See `capabilities/notes.md`.
+- `doc-sync` — generic read/write interface for external document stores
+  (Confluence, Google Docs, Notion). See `capabilities/doc-sync.md`.
+- `task-sync` — generic read/write interface for external task trackers
+  (Jira, Linear). See `capabilities/task-sync.md`.
