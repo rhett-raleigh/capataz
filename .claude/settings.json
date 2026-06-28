@@ -77,9 +77,20 @@
       "Bash(gh issue list*)",
       "Bash(gh issue view*)",
 
+      "Bash(open \"obsidian://*)",
+      "Read(~/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhetts-vault/**)",
+      "Write(~/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhetts-vault/**)",
+      "Edit(~/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhetts-vault/**)",
+      "Bash(diskutil info *)",
+      "Bash(chmod +x *)",
+      "Bash(bash -n *)",
+
+      "mcp__ccd_session__mark_chapter",
+
       "Bash(claude -p *)",
       "Bash(claude --bg *)",
 
+      "mcp__obsidian__*",
       "mcp__slack__*",
       "mcp__atlassian__*",
       "mcp__jira__*",

@@ -16,6 +16,23 @@ Read `config/notes.yaml` (or `config/notes.md`) to resolve:
 If the config file does not exist, stop and tell the user to copy the template
 from `templates/notes/`.
 
+## Transport preference
+
+**Prefer the Obsidian MCP (`mcp__obsidian__*`) over direct file I/O** when it is
+available. MCP tools avoid filesystem permission prompts and give you vault-aware
+search.
+
+| Operation | MCP tool | File I/O fallback |
+|-----------|----------|-------------------|
+| Read a note | `mcp__obsidian__get_file_contents` | `Read(<vault_path>/<file>)` |
+| Write / update a note | `mcp__obsidian__update_note_content` or `mcp__obsidian__create_note` | `Write(<vault_path>/<file>)` |
+| List notes | `mcp__obsidian__list_files_in_dir` | `ls <vault_path>/<subdir>` |
+| Search vault | `mcp__obsidian__search_vault` | `grep` across vault files |
+
+To check availability: if `mcp__obsidian__list_files_in_vault` resolves, use
+MCP for the entire operation. If it errors or is absent, fall back to file I/O
+using `vault_path` from config.
+
 ## Note format
 
 Every note is a Markdown file with YAML frontmatter:

@@ -58,4 +58,48 @@ so the engine is portable but behaves natively in Claude.
    claude --agent capataz "Orchestrate this input: ..."
    ```
 
+## Connecting to Obsidian
+
+The notes system works best with the **Obsidian MCP**, which gives the agent
+vault-aware read/write/search without filesystem permission prompts.
+
+### Setup (recommended)
+
+1. In Obsidian, install the **Local REST API** community plugin and enable it.
+   Copy the API key from its settings.
+2. Add the key to your `.env`:
+   ```
+   OBSIDIAN_API_KEY=your-api-key-here
+   ```
+3. Register the MCP server:
+   ```
+   claude mcp add obsidian -- npx -y mcp-obsidian
+   ```
+4. Allowlist the tools in `.claude/settings.json`:
+   ```jsonc
+   { "permissions": { "allow": ["mcp__obsidian__*"] } }
+   ```
+
+The agent will automatically prefer MCP over direct file writes when available.
+
+### Fallback: direct file access
+
+If you prefer not to run the MCP (or Obsidian isn't open), the agent falls back
+to direct file I/O. To reduce permission prompts, allowlist your vault path in
+`.claude/settings.local.json` (gitignored — keeps personal paths out of the
+shared config):
+
+```jsonc
+{
+  "permissions": {
+    "allow": [
+      "Read(~/Library/Mobile Documents/iCloud~md~obsidian/Documents/your-vault/**)",
+      "Write(~/Library/Mobile Documents/iCloud~md~obsidian/Documents/your-vault/**)",
+      "Edit(~/Library/Mobile Documents/iCloud~md~obsidian/Documents/your-vault/**)",
+      "Bash(open \"obsidian://*)"
+    ]
+  }
+}
+```
+
 See `docs/setup.md` to get running and `docs/extending.md` to add a capability.
