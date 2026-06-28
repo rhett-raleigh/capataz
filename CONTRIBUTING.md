@@ -19,7 +19,8 @@ CONTRIBUTING.md        ← you are here (dev instructions)
 
 skills/                ← pluggable behaviors (one .md per skill)
 capabilities/          ← reusable building blocks skills compose
-docs/                  ← design docs, specs, guides
+docs/                  ← reference documentation (how the system works)
+project/               ← living project knowledge (decisions, ideas, plans)
 templates/             ← starter files for new installs
 hooks/                 ← shell hooks (e.g. secret protection)
 bin/                   ← entry points (CLI wrappers)
@@ -36,7 +37,7 @@ private.**
 
 | Path | Tracked | Contains |
 |------|---------|----------|
-| `skills/`, `capabilities/`, `docs/`, `templates/` | Yes | Generic, shareable engine logic |
+| `skills/`, `capabilities/`, `docs/`, `project/`, `templates/` | Yes | Generic, shareable engine logic |
 | `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md` | Yes | Instructions |
 | `memory/`, `data/`, `config/`, `.env`, `.mcp.json` | **No** | Personal data, secrets, machine config |
 
@@ -67,8 +68,14 @@ A capability is a reusable building block that skills compose (e.g. `classify`,
 
 ### Docs (`docs/`)
 
-Design documents, specs, and guides. Update when the behavior they describe
-changes — stale docs are worse than no docs.
+Reference documentation — how the system works, setup guides, specs. Update when
+the behavior they describe changes — stale docs are worse than no docs. See
+`docs/README.md`.
+
+### Project knowledge (`project/`)
+
+Living record of decisions, ideas, and work plans about capataz itself. Use the
+templates in each subdirectory. See `project/README.md` for conventions.
 
 ### Templates (`templates/`)
 

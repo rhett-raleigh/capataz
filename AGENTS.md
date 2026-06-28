@@ -42,6 +42,7 @@ INPUT (slack link | ticket ref | instruction)
   → READ source (via the available MCP or skill)
   → CLASSIFY  (see capabilities/classify.md)
         ├─ personal / note       → record it (notes, goals, reflections)
+        ├─ project knowledge     → write to project/ (ideas, decisions, plans about this project)
         ├─ task / tracker item    → find-or-create in the tracker
         └─ engineering work       → create/raise ticket → hand off to coding agent → PR
   → CONFIRM with the user when ambiguous or before any code is written
@@ -54,7 +55,7 @@ INPUT (slack link | ticket ref | instruction)
   employer-confidential content **only** into the gitignored paths: `memory/`,
   `data/`, `config/`, `.env`, `.mcp.json`. **Never** write personal or secret
   content into tracked files (`AGENTS.md`, `skills/`, `capabilities/`, `docs/`,
-  `README.md`, `templates/`). If unsure whether a path is tracked, ask or check
+  `README.md`, `templates/`, `project/`). If unsure whether a path is tracked, ask or check
   `.gitignore` before writing.
 - **No silent code.** Never spin up a coding agent or open a PR without an
   explicit confirmation step, until the user tells you a given flow is trusted.
@@ -95,8 +96,21 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   report back. (Example skill — copy it to build real ones.)
 - `notes` — capture ideas (quick or guided), track goals, run coached weekly
   reflections, browse and open notes in Obsidian. See `skills/notes.md`.
+- `morning-briefing` — daily briefing from Slack, trackers, calendar, git, and
+  capataz memory. Writes to `data/briefings/YYYY-MM-DD.md`. Degrades gracefully
+  when data sources are unconfigured.
 
-## 8. Capabilities index
+## 8. Project knowledge (`project/`)
+
+The `project/` directory is the tracked record of decisions, ideas, and work
+plans about capataz itself. When the user says "I have an idea for capataz" or
+"let's record a decision," write to `project/` using the templates there. See
+`project/README.md` for conventions.
+
+This is distinct from the personal notes skill (§7) which writes to a gitignored
+Obsidian vault. `project/` is committed and shared; personal notes are private.
+
+## 9. Capabilities index
 
 - `classify` — decide whether an input is a note, a tracker task, or engineering
   work. See `capabilities/classify.md`.
