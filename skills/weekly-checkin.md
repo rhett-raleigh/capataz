@@ -14,7 +14,7 @@ goal-setter specialist.
 
 ## Inputs
 - Current quarter state (`data/quarters/<QTR>/state.md`).
-- Work breakdown artifacts (`data/quarters/<QTR>/breakdown-*.md`).
+- Work breakdown artifacts (`data/quarters/<QTR>/breakdown/*.md`).
 - Previous week's goals (`data/quarters/<QTR>/weekly/week-<N>.md`), if any.
 
 ## Steps
@@ -27,7 +27,7 @@ goal-setter specialist.
    - Any blockers or surprises?
    Record the answers.
 3. **Update breakdown artifacts.** Mark completed stories/tasks in the relevant
-   `breakdown-*.md` files. Update status fields (e.g. `planned` → `done`,
+   `breakdown/*.md` files. Update status fields (e.g. `planned` → `done`,
    `in-progress` → `blocked`).
 4. **Compile goal-setter brief.** Prepare a structured brief for the goal-setter
    specialist:

@@ -15,7 +15,7 @@ team's available capacity.
 ## Inputs
 - Candidate initiatives (from the user — may come from leadership, PM, tech
   debt backlogs, or carryover from last quarter).
-- Available capacity from the capacity plan (`data/quarters/<QTR>/capacity-brief.md`
+- Available capacity from the capacity plan (`data/quarters/<QTR>/capacity-plan.md`
   or the capacity-analyzer output).
 
 ## Steps

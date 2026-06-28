@@ -12,6 +12,7 @@
 - [ ] Priority Setting
 - [ ] Functional Specs
 - [ ] Work Breakdown
+- [ ] Execution Check-ins
 - [ ] Weekly Goal Setting (recurring)
 
 ## Current Phase

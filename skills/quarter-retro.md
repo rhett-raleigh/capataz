@@ -19,7 +19,7 @@ the first step before capacity planning — look back before planning forward.
 
 ## Steps
 1. **Load prior quarter data.** Read `data/quarters/<QTR>/state.md` and any
-   artifacts (`breakdown-*.md`, `weekly/` check-ins, `priorities.md`). Note what
+   artifacts (`breakdown/*.md`, `weekly/` check-ins, `priorities.md`). Note what
    was planned, what reached "done," and what stalled.
 2. **Summarize plan vs. reality.** Build a draft table: planned initiatives on
    the left, actual outcome on the right. Include anything that shipped but
