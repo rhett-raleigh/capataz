@@ -39,6 +39,10 @@ Periodically (a cheap recurring task): scan `log.md` for durable signals,
 promote them into `learned.md` with a why, then prune. Delete facts that turn out
 wrong rather than letting them rot. Smaller, truer `learned.md` beats a big one.
 
+The trigger for this is `skills/consolidate-memory.md` — runnable on a cron
+schedule or on demand. See that file for the full procedure, checkpoint
+mechanics, and contradiction-handling rules.
+
 ## Why not one big memory file
 A single growing blob gets loaded in full every run, costs context, and mixes
 "who I am" with "what happened." Splitting keeps each part small and purpose-fit.

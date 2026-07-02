@@ -107,6 +107,9 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   impact and effort.
 - `weekly-checkin` — [work] Run a start-of-week or mid-week check-in against
   the quarter plan.
+- `consolidate-memory` — [system] Promote durable signals from `memory/log.md`
+  into `memory/learned.md`, then prune. Scheduled via cron; safe to also run
+  on demand. Degrades gracefully if `log.md` has nothing new since last run.
 
 ## 8. Project knowledge (`project/`)
 
