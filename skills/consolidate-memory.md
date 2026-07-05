@@ -1,11 +1,11 @@
-# consolidate-memory
-
-**Skill index line (add to `AGENTS.md` §7):**
-`consolidate-memory` — [system] Promote durable signals from `memory/log.md`
-into `memory/learned.md`, then prune. Scheduled via cron; safe to also run
-on demand. Degrades gracefully if `log.md` has nothing new since last run.
-
 ---
+name: consolidate-memory
+description: Promote durable signals from memory/log.md into memory/learned.md, then prune. Scheduled via launchd; safe to also run on demand. Degrades gracefully if log.md has nothing new since last run.
+requires: []
+profiles: []
+---
+
+# consolidate-memory
 
 ## Intent
 
