@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# capataz-log — append one line to memory/log.md, creating it if needed.
+# Usage: capataz-log <kind> <detail...>
+# Logging must be mechanical: wrappers and hooks call this so history exists
+# even when the agent forgets to log. See docs/memory-model.md.
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+ROOT="$(cd "$(dirname "$SOURCE")/.." && pwd)"
+
+KIND="${1:-}"
+shift || true
+DETAIL="${*:-}"
+if [ -z "$KIND" ] || [ -z "$DETAIL" ]; then
+  echo "usage: capataz-log <kind> <detail...>" >&2
+  exit 1
+fi
+
+LOG="$ROOT/memory/log.md"
+mkdir -p "$ROOT/memory"
+if [ ! -f "$LOG" ]; then
+  printf '# Log\n\nAppend-only history of runs and outcomes. See docs/memory-model.md.\n\n' > "$LOG"
+fi
+
+# Keep every entry on a single line.
+DETAIL="$(printf '%s' "$DETAIL" | tr '\n\t' '  ')"
+printf '%s  %s  %s\n' "$(date -u +%F)" "$KIND" "$DETAIL" >> "$LOG"

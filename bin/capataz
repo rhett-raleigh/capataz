@@ -57,6 +57,7 @@ if [ "$INTERACTIVE" = true ]; then
   exec claude "$PROMPT" --agent capataz --add-dir "$ROOT"
 elif [ "$ASYNC" = true ]; then
   claude --bg -p "$PROMPT" --agent capataz --add-dir "$ROOT"
+  "$ROOT/bin/capataz-log" run-async "input: ${INPUT} (backgrounded)" || true
 else
   OUT="$(claude -p "$PROMPT" --agent capataz --add-dir "$ROOT" --output-format json)"
 
@@ -65,6 +66,8 @@ else
 
   mkdir -p data
   printf '%s\t%s\t%s\n' "$(date -u +%FT%TZ)" "${SID:-unknown}" "${INPUT}" >> data/sessions.log
+  SUMMARY="$(printf '%s' "${RES:-no result captured}" | head -c 200)"
+  "$ROOT/bin/capataz-log" run "input: ${INPUT} | session: ${SID:-unknown} | result: ${SUMMARY}" || true
 
   printf '%s\n' "${RES:-$OUT}"
   if [ -n "${SID}" ]; then

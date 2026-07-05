@@ -33,6 +33,13 @@ reads only the relevant tail. This is the audit trail, not working memory.
 2026-06-25  note         logged quarterly goal to data/goals.md
 ```
 
+Entries are written two ways: skills append their own outcome lines (per
+their Output sections), and the machinery appends mechanically — `bin/capataz`
+logs every `run` / `run-async`, and a `SessionEnd` hook logs every
+`session-end` (see `hooks/log-session-end.sh`). Mechanical entries guarantee
+history exists even when a session forgets to log. All writers go through
+`bin/capataz-log`, which creates the file on first use.
+
 ## Consolidation
 
 Periodically (a cheap recurring task): scan `log.md` for durable signals,
