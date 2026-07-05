@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# install-schedules — install capataz's launchd schedules for this machine.
+# Copies templates/launchd/*.plist to ~/Library/LaunchAgents with this repo's
+# absolute path substituted, then (re)loads them. Idempotent; run again after
+# moving the repo or editing a template. Uninstall:
+#   launchctl unload ~/Library/LaunchAgents/com.capataz.*.plist
+#   rm ~/Library/LaunchAgents/com.capataz.*.plist
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ "$SOURCE" != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+ROOT="$(cd "$(dirname "$SOURCE")/.." && pwd)"
+
+mkdir -p "$HOME/Library/LaunchAgents" "$ROOT/data/launchd"
+
+shopt -s nullglob
+TEMPLATES=("$ROOT"/templates/launchd/*.plist)
+if [ ${#TEMPLATES[@]} -eq 0 ]; then
+  echo "install-schedules: no templates found in templates/launchd/" >&2
+  exit 1
+fi
+
+for T in "${TEMPLATES[@]}"; do
+  NAME="$(basename "$T")"
+  DEST="$HOME/Library/LaunchAgents/$NAME"
+  sed "s|__CAPATAZ_ROOT__|$ROOT|g" "$T" > "$DEST"
+  plutil -lint "$DEST" >/dev/null
+  launchctl unload "$DEST" 2>/dev/null || true
+  launchctl load "$DEST"
+  echo "installed + loaded $NAME"
+done
+
+echo ""
+echo "Check status:  launchctl list | grep com.capataz"
+echo "Run logs:      $ROOT/data/launchd/"

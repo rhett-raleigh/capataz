@@ -75,6 +75,12 @@ INPUT (slack link | ticket ref | instruction)
 - `memory/log.md` — append-only history of tasks and outcomes. Not loaded whole.
 - Periodically consolidate: promote durable signals from `log.md` into
   `learned.md`, then prune. Stale or wrong facts get deleted, not buried.
+- **Corrections are logged the moment they happen.** When the user corrects
+  you — a wrong route, a wrong fact, a "no, do it this way" — immediately
+  append a `correction` entry to `memory/log.md`:
+  `YYYY-MM-DD  correction  <what was wrong> → <what is right>`.
+  Don't wait for consolidation; a correction that isn't captured is a
+  mistake you'll repeat.
 
 ## 6. Extending yourself
 
@@ -107,6 +113,9 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
   impact and effort.
 - `weekly-checkin` — [work] Run a start-of-week or mid-week check-in against
   the quarter plan.
+- `consolidate-memory` — [system] Promote durable signals from `memory/log.md`
+  into `memory/learned.md`, then prune. Scheduled via launchd; safe to also run
+  on demand. Degrades gracefully if `log.md` has nothing new since last run.
 
 ## 8. Project knowledge (`project/`)
 

@@ -31,13 +31,25 @@ reads only the relevant tail. This is the audit trail, not working memory.
 ```
 2026-06-25  engineering  PROJ-412 → repo api-gateway → PR #88 (merged by human)
 2026-06-25  note         logged quarterly goal to data/goals.md
+2026-06-26  correction   routed repo bug-report as task; user said engineering — prefer engineering when a repo is named
 ```
+
+Entries are written two ways: skills append their own outcome lines (per
+their Output sections), and the machinery appends mechanically — `bin/capataz`
+logs every `run` / `run-async`, and a `SessionEnd` hook logs every
+`session-end` (see `hooks/log-session-end.sh`). Mechanical entries guarantee
+history exists even when a session forgets to log. All writers go through
+`bin/capataz-log`, which creates the file on first use.
 
 ## Consolidation
 
 Periodically (a cheap recurring task): scan `log.md` for durable signals,
 promote them into `learned.md` with a why, then prune. Delete facts that turn out
 wrong rather than letting them rot. Smaller, truer `learned.md` beats a big one.
+
+The trigger for this is `skills/consolidate-memory.md` — runnable on a cron
+schedule or on demand. See that file for the full procedure, checkpoint
+mechanics, and contradiction-handling rules.
 
 ## Why not one big memory file
 A single growing blob gets loaded in full every run, costs context, and mixes

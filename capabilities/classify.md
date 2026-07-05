@@ -4,7 +4,7 @@ The first decision every run. Cheap to get right, expensive to get wrong, so be
 explicit and ask when unsure.
 
 ## Goal
-Sort an incoming input into one of three lanes:
+Sort an incoming input into one of four lanes:
 
 | Lane | Looks like | Routes to |
 |------|-----------|-----------|

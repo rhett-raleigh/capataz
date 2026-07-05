@@ -12,6 +12,7 @@ For living project knowledge (decisions, ideas, work plans), see `project/`.
 - `setup.md` — first-time installation and configuration
 - `extending.md` — how to add skills and capabilities
 - `invocation.md` — how to invoke the orchestrator
+- `scheduling.md` — launchd setup for recurring skill runs
 - `memory-model.md` — how memory and logging work
 - `secrets.md` — secret management and the privacy boundary
 - `sessions.md` — session lifecycle and worktree isolation
