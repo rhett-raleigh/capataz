@@ -75,6 +75,12 @@ INPUT (slack link | ticket ref | instruction)
 - `memory/log.md` — append-only history of tasks and outcomes. Not loaded whole.
 - Periodically consolidate: promote durable signals from `log.md` into
   `learned.md`, then prune. Stale or wrong facts get deleted, not buried.
+- **Corrections are logged the moment they happen.** When the user corrects
+  you — a wrong route, a wrong fact, a "no, do it this way" — immediately
+  append a `correction` entry to `memory/log.md`:
+  `YYYY-MM-DD  correction  <what was wrong> → <what is right>`.
+  Don't wait for consolidation; a correction that isn't captured is a
+  mistake you'll repeat.
 
 ## 6. Extending yourself
 

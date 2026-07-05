@@ -41,8 +41,8 @@ doesn't grow unbounded.
    dedupe against and to know what's already curated.
 4. **Identify candidates for promotion.** A log entry is a candidate if it
    is one of:
-   - An explicit correction (the user told a session it was wrong about
-     something)
+   - An explicit correction — any `correction` entry (per AGENTS.md §5), or
+     prose where the user told a session it was wrong about something
    - A pattern repeated 2+ times across different sessions (same
      preference, same recurring task, same recurring mistake)
    - An explicit "remember this" / "note for next time" instruction that

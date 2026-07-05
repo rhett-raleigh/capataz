@@ -31,6 +31,7 @@ reads only the relevant tail. This is the audit trail, not working memory.
 ```
 2026-06-25  engineering  PROJ-412 → repo api-gateway → PR #88 (merged by human)
 2026-06-25  note         logged quarterly goal to data/goals.md
+2026-06-26  correction   routed repo bug-report as task; user said engineering — prefer engineering when a repo is named
 ```
 
 Entries are written two ways: skills append their own outcome lines (per
