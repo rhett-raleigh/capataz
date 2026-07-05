@@ -64,7 +64,7 @@ skill file.
 ### Capabilities (`capabilities/`)
 
 A capability is a reusable building block that skills compose (e.g. `classify`,
-`code-handoff`). Same format conventions as skills but indexed in `AGENTS.md` §8.
+`code-handoff`). Same format conventions as skills but indexed in `AGENTS.md` §9.
 
 ### Docs (`docs/`)
 
