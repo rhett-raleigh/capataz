@@ -1,0 +1,4 @@
+# goal-notify history — one line per notification sent, append-only.
+# Format: YYYY-MM-DD HH:MM | goal(s) | trigger(s) | message
+# Example: 2026-07-08 18:30 | gym, spending | overdue-checkin, off-track | "No gym log in 4 days; dining out at 92% of budget"
+# goal-notify reads this to enforce max 1 notification per goal per day.

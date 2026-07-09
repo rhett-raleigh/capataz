@@ -84,6 +84,8 @@
       "Bash(diskutil info *)",
       "Bash(chmod +x *)",
       "Bash(bash -n *)",
+      "Bash(osascript *)",
+      "Bash(npx *)",
 
       "mcp__ccd_session__mark_chapter",
 
@@ -94,7 +96,8 @@
       "mcp__slack__*",
       "mcp__atlassian__*",
       "mcp__jira__*",
-      "mcp__linear__*"
+      "mcp__linear__*",
+      "mcp__copilot__*"
     ],
     "deny": [
       "Read(./.env)",

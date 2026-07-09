@@ -116,6 +116,20 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
 - `consolidate-memory` — [system] Promote durable signals from `memory/log.md`
   into `memory/learned.md`, then prune. Scheduled via launchd; safe to also run
   on demand. Degrades gracefully if `log.md` has nothing new since last run.
+- `goal-checkin` — [personal] conversational goal check-in ("log my workout",
+  "gym: ✅") → append to `data/goals/log/YYYY-MM.md`; pulls real spending via
+  Copilot MCP for finance goals when available.
+- `goal-review` — [personal] weekly/monthly goals reflection — streaks, gaps,
+  patterns, 2-3 coached questions; promotes durable insights to
+  `memory/learned.md` `## Goals`.
+- `goal-notify` — [personal] rule-gated goal nudges (quiet hours, 1/goal/day,
+  paused-goal and briefing-imminent skips) via macOS notification. Meant for a
+  scheduled run.
+- `health-import` — [personal] parse an Apple Health XML export (nutrition,
+  workouts, weight; MacroFactor syncs through it) into daily goals-log entries.
+- `habit-import` — [personal] import a Habit Grid CSV
+  (`date,habit_name,completed`) into the goals log. Format doc:
+  `data/goals/habit-import-format.md`.
 
 ## 8. Project knowledge (`project/`)
 
