@@ -14,7 +14,8 @@ format) and wants it logged: "import my habits from ~/Downloads/habits.csv".
 ## Inputs
 - Path to a CSV in the format documented in `data/goals/habit-import-format.md`:
   `date,habit_name,completed`, one row per habit per day.
-- `data/goals/goals.md` — to map habit names to goals under `## Habits`.
+- `data/goals/*.md` — scan goal files with `category: habits` to map habit
+  names to goals (by filename and `target` field).
 
 ## Steps
 
@@ -25,9 +26,10 @@ format) and wants it logged: "import my habits from ~/Downloads/habits.csv".
   end — don't abort the whole import for one bad row.
 
 ### 1. Map habits to goals
-Match `habit_name` case-insensitively/fuzzily against goals under `## Habits`
-in `goals.md`. Unmatched habits still get imported under their CSV name; list
-them in the report as candidates for a new goal entry.
+Match `habit_name` case-insensitively/fuzzily against goal files with
+`category: habits` (by filename or `target` text). Unmatched habits still get
+imported under their CSV name; list them in the report as candidates for a new
+goal file.
 
 ### 2. Write to the goals log
 For each date in the CSV, append/update in the right `data/goals/log/YYYY-MM.md`

@@ -19,7 +19,8 @@ Health).
   directory containing it.
 - Optional date range. Default: since the last import (see step 3), else the
   last 30 days.
-- `data/goals/goals.md` — to know which metrics map to which goals.
+- `data/goals/*.md` — scan goal files (`type: goal` frontmatter) to know which
+  metrics map to which goals (by `category` and `target` fields).
 
 ## Steps
 
@@ -68,8 +69,8 @@ logged bullets. Keep day headings in chronological order.
 
 ### 4. Report
 Summarize: date range covered, days with nutrition data, workout count, weight
-entries, and anything notably aligned or misaligned with the targets in
-`goals.md` (one or two lines, not a full review — point to `goal-review` for
+entries, and anything notably aligned or misaligned with the targets in the active goal
+files (one or two lines, not a full review — point to `goal-review` for
 that). Note the last imported date so the next run can default its range.
 Clean up any scratch extraction.
 

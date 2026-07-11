@@ -16,33 +16,37 @@ instead; for bulk data use `health-import` / `habit-import`.
 
 ## Inputs
 - The user's update — quick (`gym: ✅`) or detailed (free text).
-- `data/goals/goals.md` — read for context: which goals exist, targets, cadence.
+- `data/goals/*.md` — scan all files with `type: goal` frontmatter for context:
+  which goals exist, their targets, cadence, category. Filter to `status: active`.
 - Optionally: a date if the update is for a past day (defaults to today).
 
 ## Steps
 
 ### 0. Prepare
-- Read `data/goals/goals.md`. If it doesn't exist or is still all template
-  placeholders, say so and offer to fill it in together before logging.
+- Scan `data/goals/*.md` for files with `type: goal` in frontmatter. Filter to
+  `status: active`. If no goal files exist (or all are templates), say so and
+  offer to create goals together before logging.
 - Set `DATE` to today (or the date the user names — "yesterday's run" → yesterday).
 - The log file is `data/goals/log/YYYY-MM.md` for `DATE`'s month. Create it with
   a `# Goals Log — YYYY-MM` header if it doesn't exist.
 
 ### 1. Interpret the update
-- Match the update to a goal in `goals.md` (fuzzy: "gym", "lifted", "workout"
-  all → the Fitness/Gym goal). If it doesn't match any goal, log it anyway
-  under the closest category and note it might deserve its own goal entry.
+- Match the update to a goal file (fuzzy: "gym", "lifted", "workout" all →
+  `gym.md`). Match by filename, frontmatter `category`, or `target` text.
+  If it doesn't match any goal, log it anyway under the closest category
+  and note it might deserve its own goal file.
 - Quick format (`gym: ✅`, `reading: ❌`): log as-is, no interrogation.
 - Detailed format: capture the substance in one or two lines — what, how much,
   how it felt. Don't pad.
 - Misses are logged too (`❌` with optional reason) — gaps are data.
 
 ### 2. Finance updates — pull real data if possible
-If the update concerns a Finance goal and the Copilot Money MCP is available
-(`mcp__copilot__*` tools), query it for actual figures (month-to-date spending
-in the relevant category, budget status) instead of relying on the user's
-recollection, and log the real numbers. If the MCP is unavailable, log what the
-user reports and note: "(self-reported — Copilot MCP not configured)".
+If the update concerns a goal with `category: finance` and the Copilot Money
+MCP is available (`mcp__copilot__*` tools), query it for actual figures
+(month-to-date spending in the relevant category, budget status) instead of
+relying on the user's recollection, and log the real numbers. If the MCP is
+unavailable, log what the user reports and note: "(self-reported — Copilot MCP
+not configured)".
 
 ### 3. Append to the log
 Append under a `## YYYY-MM-DD` heading (create it if today has no entries yet;

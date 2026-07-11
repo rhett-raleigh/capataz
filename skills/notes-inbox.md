@@ -18,7 +18,8 @@ is silence.
 
 - The inbox folder: `<vault>/inbox/` (resolve vault path from
   `config/notes.yaml` → `vault_path`).
-- `data/goals/goals.md` — for effect detection against goal targets/cadences.
+- `data/goals/*.md` — scan goal files (`type: goal` frontmatter, `status: active`)
+  for effect detection against goal targets/cadences.
 - `memory/learned.md` — for contradiction detection against known decisions.
 - Copilot Money MCP (optional) — for finance-related effect detection.
 
@@ -81,7 +82,7 @@ Scan the note body for:
 - **Finance mentions**: dollar amounts, spending, budget references. If
   Copilot MCP is available, check against current budget status.
 - **Goal-related**: mentions of fitness, nutrition, habits, or tracked
-  goals. Check alignment with targets in `data/goals/goals.md`.
+  goals. Check alignment with targets in active goal files.
 
 Effects found → add to the notification message. No effects → note routes
 silently.
@@ -163,4 +164,4 @@ in the notification — they'll be handled next interactive session.
 - `osascript` is used only for `display notification`.
 - Copilot MCP usage is read-only.
 - Quiet hours: same as goal-notify (22:00–08:00, from
-  `data/goals/goals.md` notification settings).
+  `data/goals/_settings.md`).

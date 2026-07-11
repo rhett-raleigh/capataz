@@ -74,17 +74,18 @@ If `memory/log.md` doesn't exist or is empty, note: "No in-flight threads
 (memory/log.md is empty)."
 
 ### 6. Goals
-Read `data/goals/goals.md` and the current month's `data/goals/log/YYYY-MM.md`
-(plus the previous month's if we're in the first days of a month):
+Scan `data/goals/*.md` for files with `type: goal` in frontmatter; filter to
+`status: active`. Read the current month's `data/goals/log/YYYY-MM.md` (plus
+the previous month's if we're in the first days of a month):
 - **Streak status per active goal**: consecutive days/weeks with entries,
-  computed from the log per the goal's check-in cadence.
+  computed from the log per the goal's `cadence` field.
 - **Overdue flag**: any active goal with no log entry in > 2× its cadence
   (e.g. daily cadence, nothing for 3 days) — flag it explicitly.
 - **One priority nudge**: the single most useful goal action for today
   (the most overdue goal, or a streak worth protecting). One line, not a list.
 
-Degrade gracefully: if `data/goals/goals.md` doesn't exist, note: "Goals
-skipped — no goals defined in data/goals/goals.md." If goals exist but
+Degrade gracefully: if no `type: goal` files exist in `data/goals/`, note:
+"Goals skipped — no goal files found in data/goals/." If goals exist but
 `data/goals/log/` has no entries yet, note: "Goals defined but no check-ins
 logged yet — say 'goals check-in' to start."
 

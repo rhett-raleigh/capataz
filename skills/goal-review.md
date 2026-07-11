@@ -14,15 +14,17 @@ did this week/month go", "monthly reflection on my goals". Heavier than
 
 ## Inputs
 - Scope: weekly (default) or monthly, or explicit date range.
-- `data/goals/goals.md` — goals, targets, cadences.
+- `data/goals/*.md` — scan all files with `type: goal` frontmatter for goals,
+  targets, cadences, categories. Filter to `status: active`.
 - `data/goals/log/` — the current month's log, plus the previous month's when
   the window spans a month boundary or for streak context.
 
 ## Steps
 
 ### 0. Prepare
-- Read `data/goals/goals.md`. If missing/empty, there's nothing to review —
-  offer to set up goals instead.
+- Scan `data/goals/*.md` for files with `type: goal` in frontmatter. Filter to
+  `status: active`. If no goal files exist, there's nothing to review — offer
+  to set up goals instead.
 - Read the tail of the relevant `data/goals/log/YYYY-MM.md` file(s). If no log
   entries exist in the window, say so plainly and ask whether the gap is a
   logging problem or a doing problem — then stop (that's the review).
@@ -30,12 +32,14 @@ did this week/month go", "monthly reflection on my goals". Heavier than
 ### 1. Compute the picture (per active goal)
 - **Streak**: consecutive periods (days or weeks, per the goal's cadence) with
   a ✅ or substantive entry. Count from the log; don't guess.
-- **Cadence adherence**: entries in window vs. expected from cadence
-  (e.g. "2 of 3 gym sessions").
+- **Cadence adherence**: entries in window vs. expected from the goal's
+  `cadence` field (e.g. "2 of 3 gym sessions").
 - **Gaps**: no entry in > 2× cadence → flag explicitly.
 - **Patterns**: anything visible across entries — misses cluster on certain
   days, quality trending up/down, finance numbers drifting toward the cap.
   Only report patterns actually supported by the entries.
+- **Timeframe check**: for goals with `timeframe: quarterly | monthly | yearly`,
+  note progress relative to the period end if measurable.
 - Paused goals: mention in one line, don't analyze.
 
 ### 2. Present the review
