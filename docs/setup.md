@@ -72,9 +72,16 @@ visible in Obsidian (and on mobile via vault sync) while every skill keeps
 reading the same `data/goals/...` paths:
 
 ```bash
-mv data/goals "<vault>/goals/capataz"
-ln -s "<vault>/goals/capataz" data/goals
+mv data/goals "<vault>/goals"
+ln -s "<vault>/goals" data/goals
 ```
+
+If you also use the `notes` skill's quarterly goal notes (`<vault>/goals/YYYY-QN-<slug>.md`
+with `type: goal` frontmatter), they'll live in the same vault folder as
+`goals.md`/`log/`/`notifications.log`. That's fine — the notes capability
+scans by frontmatter, so it ignores files that don't match — but keep it in
+mind if you'd rather keep the two systems visually separate (in which case
+symlink to a subfolder like `<vault>/goals/capataz` instead).
 
 The symlink lives in gitignored `data/`, so nothing personal leaks into the
 repo either way.
