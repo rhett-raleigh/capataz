@@ -130,6 +130,10 @@ behavior; present it as a reviewable git change. See `docs/extending.md`.
 - `habit-import` — [personal] import a Habit Grid CSV
   (`date,habit_name,completed`) into the goals log. Format doc:
   `data/goals/habit-import-format.md`.
+- `notes-inbox` — [personal] drain `<vault>/inbox/` — parse, classify,
+  detect effects (timeline conflicts, contradicting decisions, budget
+  drift), route to destination folders, notify. Scheduled 3x/day;
+  ambiguous notes wait for interactive confirmation.
 
 ## 8. Project knowledge (`project/`)
 

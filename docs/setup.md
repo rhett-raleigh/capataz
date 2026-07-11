@@ -59,6 +59,7 @@ provides (Claude Code scheduled tasks, cron, launchd). Recommended set:
 | `capataz-consolidate-memory` | `consolidate-memory` | daily, off-hours | Promote durable signals from `memory/log.md` into `memory/learned.md`, then prune. |
 | `capataz-goal-notify` | `goal-notify` | 1–3x daily, waking hours | Rule-gated goal nudges via macOS notification. Silent by default; skips if goals aren't set up. |
 | `capataz-weekly-goal-review-reminder` | (reminder for `goal-review`) | weekly, e.g. Sunday evening | One notification prompting an interactive goals review. The review itself is a conversation — never run it headless. |
+| `capataz-notes-inbox` | `notes-inbox` | 2–3x daily, waking hours | Drain the Obsidian inbox folder: classify, detect effects, route, notify. Empty inbox = silence. |
 | `morning-briefing` | `morning-briefing` | optional: weekday mornings | Daily briefing to `data/briefings/`. Also fine to run on demand. |
 
 Each scheduled prompt should instruct the agent to work in this repo and follow
