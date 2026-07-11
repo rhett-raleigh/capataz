@@ -102,4 +102,12 @@ shared config):
 }
 ```
 
+## Scheduled tasks
+
+Some skills (`consolidate-memory`, `goal-notify`, the weekly goals-review
+reminder, optionally `morning-briefing`) are meant to run unattended on a
+schedule. The required set and suggested cadences are documented in
+[`docs/setup.md`](docs/setup.md#scheduled-tasks) — wire them with your agent
+tool's scheduler (Claude Code scheduled tasks, cron, launchd).
+
 See `docs/setup.md` to get running and `docs/extending.md` to add a capability.

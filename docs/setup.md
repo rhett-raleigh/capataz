@@ -48,6 +48,37 @@ Per machine (run once on each laptop):
    headless, logs the session id to `data/sessions.log`, and prints a resume
    command. See `docs/invocation.md` and `docs/sessions.md`.
 
+## Scheduled tasks
+
+Several skills are designed to run unattended. The engine doesn't schedule
+anything itself — wire these up with whatever scheduler your agent tool
+provides (Claude Code scheduled tasks, cron, launchd). Recommended set:
+
+| Task | Skill | Suggested schedule | What it does |
+|------|-------|--------------------|--------------|
+| `capataz-consolidate-memory` | `consolidate-memory` | daily, off-hours | Promote durable signals from `memory/log.md` into `memory/learned.md`, then prune. |
+| `capataz-goal-notify` | `goal-notify` | 1–3x daily, waking hours | Rule-gated goal nudges via macOS notification. Silent by default; skips if goals aren't set up. |
+| `capataz-weekly-goal-review-reminder` | (reminder for `goal-review`) | weekly, e.g. Sunday evening | One notification prompting an interactive goals review. The review itself is a conversation — never run it headless. |
+| `morning-briefing` | `morning-briefing` | optional: weekday mornings | Daily briefing to `data/briefings/`. Also fine to run on demand. |
+
+Each scheduled prompt should instruct the agent to work in this repo and follow
+the corresponding skill file exactly — the skill files carry the safety rules
+(quiet hours, notification caps, write boundaries).
+
+## Optional: keep goals data in your Obsidian vault
+
+`data/goals/` can be a symlink into your vault so goals and check-in logs are
+visible in Obsidian (and on mobile via vault sync) while every skill keeps
+reading the same `data/goals/...` paths:
+
+```bash
+mv data/goals "<vault>/goals/capataz"
+ln -s "<vault>/goals/capataz" data/goals
+```
+
+The symlink lives in gitignored `data/`, so nothing personal leaks into the
+repo either way.
+
 ## Wiring a trigger (e.g. Raycast)
 
 Point a Raycast Script Command at a small wrapper that invokes your agent
